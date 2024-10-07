@@ -135,6 +135,9 @@ function App() {
         timer: 3000,
       });
     }
+
+  console.log("Distance:", distance); // เพิ่ม log เพื่อดูค่า distance
+  console.log("Delivery Zone Radius:", deliveryZone.radius);
   };
   return (
     <div>
