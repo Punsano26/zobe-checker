@@ -2,6 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import Swal from "sweetalert2";
+import iconMyLocation from "./assets/map.png";
 import {
   MapContainer,
   TileLayer,
@@ -20,6 +21,15 @@ function App() {
     lng: 100.04105221,
     radius: 1000,
   });
+
+  const myLocationicon = L.icon({
+    iconUrl: iconMyLocation,
+    iconSize: [25, 25],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -10],
+    tooltipAnchor: [16, -28],
+    shadowSize: [41, 41],
+  })
 
   // function to calculate distance between 2 point using Haversine Formular
   const calculateDistance = (lat1, lng1, lat2, lng2) => {
@@ -148,21 +158,22 @@ function App() {
         <MapContainer
           center={center}
           zoom={13}
-          style={{ height: "75vh", width: "100vh" }}
+          style={{ height: "75vh", width: "100vw" }}
+          scrollWheelZoom={true}
         >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[mylocation.lat, mylocation.lng]}>
+
+          {/* Display My Location */}
+          <Marker icon={myLocationicon}
+          position={[mylocation.lat, mylocation.lng]}
+          
+          >
             <Popup>My Current Location</Popup>
           </Marker>
 
-          <Marker position={center}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
           {/* Display all stores on map  */}
           {stores &&
             stores.map((store) => {
@@ -179,7 +190,7 @@ function App() {
                   <Popup>
                     <b>{store.name}</b>
                     <p>{store.address}</p>
-                    <a href={store.direction}>Get Direction</a>
+                    <a href={store.direction} target="_blank">Get Direction</a>
                   </Popup>
                 </Marker>
               );
