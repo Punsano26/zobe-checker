@@ -4,7 +4,7 @@ const stores = [
     lat: 13.83231804,
     lng: 100.04105221,
     code: "10502",
-    raduis: 600,
+    raduis: 1600,
     name: "ไรรดา(นครปฐม)",
     address: "ต.นครปฐม อ.เมืองนครปฐม นครปฐม",
     subdistrict: "นครปฐม",
