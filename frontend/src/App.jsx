@@ -2,7 +2,6 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import Swal from "sweetalert2";
-import iconMyLocation from "./assets/map.png";
 import {
   MapContainer,
   TileLayer,
@@ -11,6 +10,7 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import axios from "axios";
+import LocationMap from "./component/LocationMap";
 const base_url = import.meta.env.VITE_API_BASE_URL;
 function App() {
   const center = [13.838464587099722, 100.02580994106604]; //computer NPRU
@@ -21,15 +21,6 @@ function App() {
     lng: 100.04105221,
     radius: 1000,
   });
-
-  const myLocationicon = L.icon({
-    iconUrl: iconMyLocation,
-    iconSize: [25, 25],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -10],
-    tooltipAnchor: [16, -28],
-    shadowSize: [41, 41],
-  })
 
   // function to calculate distance between 2 point using Haversine Formular
   const calculateDistance = (lat1, lng1, lat2, lng2) => {
@@ -65,20 +56,20 @@ function App() {
     fetchStore();
   }, []);
 
-  const LocationMap = () => {
-    useMapEvents({
-      click(e) {
-        const { lat, lng } = e.latlng;
-        console.log("lat" + lat, "long" + lng);
-        setMylocation({ lat, lng });
-      },
-    });
-    return (
-      <Marker position={[mylocation.lat, mylocation.lng]}>
-        <Popup>My Current Location</Popup>
-      </Marker>
-    );
-  };
+  // const LocationMap = () => {
+  //   useMapEvents({
+  //     click(e) {
+  //       const { lat, lng } = e.latlng;
+  //       console.log("lat" + lat, "long" + lng);
+  //       setMylocation({ lat, lng });
+  //     },
+  //   });
+  //   return (
+  //     <Marker icon={myLocationicon} position={[mylocation.lat, mylocation.lng]}>
+  //       <Popup>My Current Location</Popup>
+  //     </Marker>
+  //   );
+  // };
 
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -96,7 +87,6 @@ function App() {
       radius: store.radius,
     });
   };
-
 
   const handleLocationCheck = () => {
     if (deliveryZone.lat === "" || deliveryZone.lng === "") {
@@ -146,8 +136,8 @@ function App() {
       });
     }
 
-  console.log("Distance:", distance); // เพิ่ม log เพื่อดูค่า distance
-  console.log("Delivery Zone Radius:", deliveryZone.radius);
+    console.log("Distance:", distance); // เพิ่ม log เพื่อดูค่า distance
+    console.log("Delivery Zone Radius:", deliveryZone.radius);
   };
   return (
     <div>
@@ -167,12 +157,12 @@ function App() {
           />
 
           {/* Display My Location */}
-          <Marker icon={myLocationicon}
+          {/* <Marker icon={myLocationicon}
           position={[mylocation.lat, mylocation.lng]}
           
           >
             <Popup>My Current Location</Popup>
-          </Marker>
+          </Marker> */}
 
           {/* Display all stores on map  */}
           {stores &&
@@ -190,13 +180,15 @@ function App() {
                   <Popup>
                     <b>{store.name}</b>
                     <p>{store.address}</p>
-                    <a href={store.direction} target="_blank">Get Direction</a>
+                    <a href={store.direction} target="_blank">
+                      Get Direction
+                    </a>
                   </Popup>
                 </Marker>
               );
             })}
           {/* เรียกใช้ปักหมุดแมพด้านล่าง */}
-          <LocationMap />
+          <LocationMap mylocation={mylocation} setMylocation={setMylocation} />
         </MapContainer>
       </div>
     </div>
