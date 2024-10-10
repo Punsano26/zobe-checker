@@ -2,13 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import Swal from "sweetalert2";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMap,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import axios from "axios";
 import LocationMap from "./component/LocationMap";
 const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -73,13 +67,13 @@ function App() {
 
   const storeCircle = (lat, lng, radius) => {
     const map = useMap();
-    L.circle([lat,lng], {
+    L.circle([lat, lng], {
       color: "red",
       fillColor: "#f03",
       fillOpacity: 0.5,
       radius: deliveryZone.radius,
     }).addTo(map);
-  }
+  };
 
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -165,8 +159,6 @@ function App() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
-        
 
           {/* Display all stores on map  */}
           {stores &&
