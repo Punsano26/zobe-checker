@@ -7,7 +7,7 @@ import {
   TileLayer,
   Marker,
   Popup,
-  useMapEvents,
+  useMap,
 } from "react-leaflet";
 import axios from "axios";
 import LocationMap from "./component/LocationMap";
@@ -70,6 +70,16 @@ function App() {
   //     </Marker>
   //   );
   // };
+
+  const storeCircle = (lat, lng, radius) => {
+    const map = useMap();
+    L.circle([lat,lng], {
+      color: "red",
+      fillColor: "#f03",
+      fillOpacity: 0.5,
+      radius: deliveryZone.radius,
+    }).addTo(map);
+  }
 
   const handleGetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -156,13 +166,7 @@ function App() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {/* Display My Location */}
-          {/* <Marker icon={myLocationicon}
-          position={[mylocation.lat, mylocation.lng]}
-          
-          >
-            <Popup>My Current Location</Popup>
-          </Marker> */}
+        
 
           {/* Display all stores on map  */}
           {stores &&
@@ -172,6 +176,7 @@ function App() {
                   eventHandlers={{
                     click: () => {
                       handleStoreClick(store);
+                      storeCircle(store.lat, store.lng, store.radius);
                     },
                   }}
                   position={[store.lat, store.lng]}
