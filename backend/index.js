@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const PORT = process.env.PORT;
+const storeRouter = require("./models/store.model");
 const authRouter = require("./routers/auth.router");
 const db = require("./models/index");
 const role = db.Role;
@@ -47,6 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //user Router
 app.use("/api/v1/auth", authRouter);
+app.use("api/v1/store", storeRouter)
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to API for server Store Deliverry Zone Checker</h1>");

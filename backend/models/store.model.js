@@ -2,37 +2,29 @@ const { DataTypes, DataType } = require("sequelize");
 const sequelize = require("./db");
 
 const Store = sequelize.define("store", {
-  bookID: {
+  storeID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  title: {
+  storeName: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  img: {
+  address: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  author: {
+  latitude: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  publicationYear: {
+  longitude: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  category: {
+  deliveryRadius: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  page: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });

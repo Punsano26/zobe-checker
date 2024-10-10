@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("./db");
 //define DB Schema
-const Role = sequelize.define("role", {
+const Role = sequelize.define("role_store", {
   id: {
     //ถ้าเกิดเราไม่ได้กำหนด primary key มันจะทำให้ id เป็นค่า defult ของ sequelize
     type: DataTypes.INTEGER, // ชนิดตัวเลข
