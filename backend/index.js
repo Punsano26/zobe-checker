@@ -4,14 +4,14 @@ require("dotenv").config();
 const PORT = process.env.PORT;
 const storeRouter = require("./models/store.model");
 const authRouter = require("./routers/auth.router");
-const db = require("./models/index");
+const db = require("./models");
 const role = db.Role;
 const frontend_url = process.env.FRONT_URL;
 const corsOption = {
   origin: frontend_url,
 };
 
-db.sequelize.sync({ force: false }).then(() => {
+  db.sequelize.sync({ force: false }).then(() => {
   initRole();
   console.log("Drop and re-sync db.");
 });
@@ -29,16 +29,18 @@ const initRole = () => {
     id: 3,
     name: "admin",
   });
+  console.log("hello api");
+  
 };
 
 console.log(frontend_url);
 //List of stores
-const stores = require("./stores");
-console.log(stores);
+// const stores = require("./stores");
+// console.log(stores);
 const app = express();
 app.use(cors(corsOption));
 app.get("/api/stores", (req, res) => {
-  res.json(stores);
+  // res.json(stores);
 });
 
 //use Middleware
@@ -47,8 +49,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //user Router
-app.use("/api/v1/auth", authRouter);
-app.use("api/v1/store", storeRouter)
+// app.use("/api/v1/auth", authRouter);
+// app.use("api/v1/store", storeRouter);
 
 app.get("/", (req, res) => {
   res.send("<h1>Welcome to API for server Store Deliverry Zone Checker</h1>");

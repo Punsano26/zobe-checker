@@ -7,6 +7,13 @@ const Store = sequelize.define("store", {
     primaryKey: true,
     autoIncrement: true,
   },
+  adminId: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "user_stores",
+      key: "id",
+    },
+  },
   storeName: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -15,11 +22,11 @@ const Store = sequelize.define("store", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  latitude: {
+  lat: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  longitude: {
+  lng: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
@@ -28,11 +35,5 @@ const Store = sequelize.define("store", {
     allowNull: false,
   },
 });
-Store.sync({ force: false })
-  .then(() => {
-    console.log("Table Created or already exists");
-  })
-  .catch((err) => {
-    console.log("Error creating table:", err);
-  });
+
 module.exports = Store;

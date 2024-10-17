@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router(); //เรียกออกมาเป็นฟังก์ชันด้วยนะ!!
-const authController = require("../controllers/auth.controllers");
+const authController = require("../controllers/auth.controller");
 const { verifySignUp } = require("../middlewares");
 
 //ใส่ middleware
