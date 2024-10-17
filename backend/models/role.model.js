@@ -7,6 +7,7 @@ const Role = sequelize.define("role_store", {
     type: DataTypes.INTEGER, // ชนิดตัวเลข
     primaryKey: true,
     autoIncrement: true,
+    
   },
   name: {
     type: DataTypes.STRING, // ชนิดตัวอักษร

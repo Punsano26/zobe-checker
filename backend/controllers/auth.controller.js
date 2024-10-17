@@ -9,9 +9,9 @@ const { Op } = require("sequelize");
 //register a new user
 exports.register = async (req, res) => {
   //save user to database
-  const { username, email, password } = req.body;
+  const { username, email, password, address, lat, lng } = req.body;
 
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !address || !lat || !lng) {
     res.status(400).send({ message: "ไปกรอกใหม่ไป!" });
     return;
   }
@@ -21,39 +21,37 @@ exports.register = async (req, res) => {
     username,
     email,
     password: bcrypt.hashSync(password, 11),
+    address,
+    lat,
+    lng,
   };
   //Save user in the database
   await User.create(newUser)
     .then((user) => {
       if (req.body.roles) {
-        console.log("Roles from request:", req.body.roles); // Log roles
         Role.findAll({
-          where: {
-            name: { [Op.or]: req.body.roles },
-          },
+          where: { name: { [Op.or]: req.body.roles } },
         }).then((roles) => {
-          console.log("Roles found in DB:", roles); // Log roles from D
           user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
+            res.send({
+              message: "User registration completed successfully.",
+            });
           });
         });
       } else {
-        //set defautl role to "user" id =1
-        console.log("Setting default role to user.");
         user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({ message: "User registration completed successfully." });
         });
       }
     })
-    .catch((err) => {
-      console.error("Error finding roles:", err); // Log any errors
+    .catch((error) => {
       res.status(500).send({
         message:
-          err.message ||
-          "Somthing error occurred while registering the new User.",
+          error.message || "Something happened while registering a new user.",
       });
     });
 };
+
 
 //Login
 exports.login = async (req, res) => {

@@ -7,8 +7,8 @@ const Store = require("./store.model");
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.Role = Role;
 
+db.Role = Role;
 db.User = User;
 db.Store = Store;
 

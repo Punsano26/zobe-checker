@@ -18,15 +18,15 @@ const User = sequelize.define("user_store", {
   },
   address: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   lat: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.FLOAT,
+    allowNull: true,
   },
   lng: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.FLOAT,
+    allowNull: true,
   },
 });
 
