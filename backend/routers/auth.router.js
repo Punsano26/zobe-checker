@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 //POST http://localhost:5000/api/v1/auth/register
 router.post(
   "/register",
-  [verifySignUp.checkDublicateUsernameOrEmail, verifySignUp.checkRolesExisted],
+  // [verifySignUp.checkDublicateUsernameOrEmail, verifySignUp.checkRolesExisted],
   authController.register
 );
 

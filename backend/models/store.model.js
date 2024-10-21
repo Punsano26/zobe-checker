@@ -12,6 +12,7 @@ const Store = sequelize.define("store", {
     references: {
       model: "user_stores",
       key: "id",
+      allowNull: true,
     },
   },
   storeName: {
@@ -23,15 +24,15 @@ const Store = sequelize.define("store", {
     allowNull: false,
   },
   lat: {
-    type: DataTypes.STRING,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   lng: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
   deliveryRadius: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
